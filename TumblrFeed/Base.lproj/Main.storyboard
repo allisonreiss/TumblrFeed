@@ -37,6 +37,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imgView" destination="XFk-HU-1Sa" id="1Lp-OM-FO7"/>
+                                            <segue destination="whc-5X-uzy" kind="push" id="yXv-Im-USP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -61,21 +62,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Chg-lO-TpC">
-                                <rect key="frame" x="0.0" y="64" width="320" height="357"/>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="Chg-lO-TpC">
+                                <rect key="frame" x="0.0" y="64" width="320" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="BSO-Bs-Xty"/>
+                                    <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="KoW-Jp-3tM"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="LRn-Xy-OCJ"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="0BY-CF-cmT"/>
                     <connections>
                         <outlet property="PhotoImageView" destination="Chg-lO-TpC" id="zqz-ie-xo5"/>
+                        <segue destination="ulp-0k-DSe" kind="push" identifier="ZoomSegue" id="r2l-Bm-H91"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yoQ-R3-zFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="3jE-bE-1cH">
+                    <connections>
+                        <action selector="onZoom:" destination="whc-5X-uzy" id="6UB-Nm-hn8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="915" y="133"/>
+        </scene>
+        <!--Full Screen Photo View Controller-->
+        <scene sceneID="5A6-Ch-9mA">
+            <objects>
+                <viewController id="ulp-0k-DSe" customClass="FullScreenPhotoViewController" customModule="TumblrFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QEv-KB-Yup">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BZf-ok-04T"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gjM-HM-R9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1305" y="133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HNW-S5-2J4">

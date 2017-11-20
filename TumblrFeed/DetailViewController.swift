@@ -7,37 +7,42 @@
 //
 
 import UIKit
+import AlamofireImage
+
+
 
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var PhotoImageView: UIImageView!
-    var image: UIImage!
-
+    //var imageURL: URL!
+    var post: [String: Any] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        PhotoImageView.image = image
-//        PhotoImageView.af_setImage(withURL: url)
-
-        // Do any additional setup after loading the view.
+        if let photos = post["photos"] as? [[String: Any]] {
+            // photos is NOT nil, we can use it!
+            // Get the first photo in the photos array
+            let photo = photos[0]
+            // Get the original size dictionary from the photo
+            let originalSize = photo["original_size"] as! [String: Any]
+            // Get the url string from the orginal size dictionary
+            let urlString = originalSize["url"] as! String
+            // Create a URL using the urlString
+            if let url = URL(string: urlString) {
+                PhotoImageView.af_setImage(withURL: url)
+            }
+        }
     }
-
+/*
+    @IBAction func onZoom(_ sender: Any) {
+        performSegue(withIdentifier: "ZoomSegue", sender: nil)
+    }
+*/
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
