@@ -1,4 +1,4 @@
-# Lab 1 - TumblrFeed
+# Lab 2 - TumblrFeed
 
 **TumblrFeed** is an app that creates a Tumblr client by leveraging the power of table views and making a network request to the Tumblr API in order to create a feed of popular photos.
 
