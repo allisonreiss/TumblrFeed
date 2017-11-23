@@ -14,8 +14,9 @@ import AlamofireImage
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var PhotoImageView: UIImageView!
-    //var imageURL: URL!
+    
     var post: [String: Any] = [:]
+//    var image: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +34,21 @@ class DetailViewController: UIViewController {
             if let url = URL(string: urlString) {
                 PhotoImageView.af_setImage(withURL: url)
             }
+//            image = PhotoImageView.image
         }
     }
-
-    @IBAction func onZoom(_ sender: Any) {
-        performSegue(withIdentifier: "ZoomSegue", sender: nil)
+/*
+    @IBAction func onTap(_ sender: Any) {
+        // get the screen that we want to show
+        let mainStoryboard = UIStoryboard(name: "Home", bundle: nil)
+        let fsViewController = mainStoryboard.instantiateViewController(withIdentifier: "FullScreenPhotoViewController") as! FullScreenPhotoViewController
+        
+        fsViewController.zoomImage = self.image
+        
+        present(fsViewController, animated:true, completion:nil)
+        //performSegue(withIdentifier: "ZoomSegue", sender: nil)
     }
-
+*/
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

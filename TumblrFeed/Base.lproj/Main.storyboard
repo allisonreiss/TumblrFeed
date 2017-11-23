@@ -66,17 +66,10 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="BSO-Bs-Xty"/>
-                                    <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="KoW-Jp-3tM"/>
-                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="3jE-bE-1cH" appends="YES" id="LRn-Xy-OCJ"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="0BY-CF-cmT"/>
                     <connections>
@@ -85,11 +78,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yoQ-R3-zFy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="3jE-bE-1cH">
-                    <connections>
-                        <action selector="onZoom:" destination="whc-5X-uzy" id="6UB-Nm-hn8"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="915" y="133"/>
         </scene>

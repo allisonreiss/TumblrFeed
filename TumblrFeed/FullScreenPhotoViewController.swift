@@ -10,15 +10,22 @@ import UIKit
 
 class FullScreenPhotoViewController: UIViewController {
 
+    var zoomImage: UIImage!
+    
     @IBOutlet weak var ZoomScrollView: UIScrollView!
     @IBOutlet weak var ZoomImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.ZoomImageView.image = self.zoomImage
+        ZoomScrollView.contentSize = ZoomImageView.image!.size
+        
         ZoomScrollView.delegate = self as? UIScrollViewDelegate
     }
 
+    
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return ZoomImageView
     }
