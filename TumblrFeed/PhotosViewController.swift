@@ -76,7 +76,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         }
          return cell
     }
-/*
+
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
@@ -92,22 +93,22 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         headerView.addSubview(profileView)
         
         // Add a UILabel for the date here
+        let dateLabel = UILabel(frame: CGRect(x: 50, y: 10, width: 200, height: 30))
         // Use the section number to get the right URL
-//        let label = ...
         let post = posts[section]
         
-        if let label = post["date"] as? [[String: Any]] {
-            print("this be the date yo")
-            print(label)
-        }
+        let date = post["date"] as? String
+        dateLabel.text = date
+        
+        headerView.addSubview(dateLabel)
         
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        <#code#>
+        return CGFloat(47)
     }
-*/
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let cell = sender as! UITableViewCell

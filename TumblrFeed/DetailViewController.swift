@@ -35,11 +35,11 @@ class DetailViewController: UIViewController {
             }
         }
     }
-/*
+
     @IBAction func onZoom(_ sender: Any) {
         performSegue(withIdentifier: "ZoomSegue", sender: nil)
     }
-*/
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
