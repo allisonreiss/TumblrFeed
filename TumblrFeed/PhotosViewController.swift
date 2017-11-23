@@ -9,16 +9,32 @@
 import UIKit
 import AlamofireImage
 
-class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate{
 
     var posts: [[String: Any]] = [];
+    var NSPosts: [NSDictionary] = []
+    var isMoreDataLoading = false
+    var loadingMoreView: InfiniteScrollActivityView?
+    
     @IBOutlet weak var TableView: UITableView!
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         TableView.delegate = self
         TableView.dataSource = self
+        
+        // Set up Infinite Scroll Loading Indicator
+        let frame = CGRect(x:0, y: TableView.contentSize.height, width: TableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        TableView.addSubview(loadingMoreView!)
+        
+        var insets = TableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        TableView.contentInset = insets
+        
         
         // Network request snippet
         let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")!
@@ -118,6 +134,62 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let vc = segue.destination as! DetailViewController
         vc.post = post
     }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Handle scroll behavior here
+        if (!isMoreDataLoading) {
+            // Calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = TableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - TableView.bounds.size.height
+            
+            //When the user has scrolled past the threshold, start requesting
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && TableView.isDragging) {
+                isMoreDataLoading = true
+                
+                // Update position of loadingMoreView, and start loading indicator
+                let frame = CGRect(x:0, y: TableView.contentSize.height, width: TableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+
+                // Code to load more results
+                loadMoreData()
+            }
+        }
+    }
+    
+    func loadMoreData() {
+        // Create the NSURLRequest (myRequest)
+        
+        // Configure session so that completion handler is executed on main UI thread
+        let url = URL(string:"https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
+        let request = URLRequest(url: url!)
+        let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        //In response dictionary, get the 'response' field of the 'meta' and 'response' fields
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        self.NSPosts = self.NSPosts + (responseFieldDictionary["posts"] as! [NSDictionary])
+                        
+                        // Use the new data to update the data source
+                        // Reload the TableView now that there is new data
+                        self.TableView.reloadData()
+                        
+                        //Update Flag
+                        self.isMoreDataLoading = false
+                        
+                        // Stop the loading indicator
+                        self.loadingMoreView!.stopAnimating()
+
+                    }
+                }
+        });
+        task.resume()
+    }
+
  }
 
 
